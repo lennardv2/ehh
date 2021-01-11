@@ -57,6 +57,8 @@ List your commands with an index and description. Add an optional QUERY to filte
 
 ```
 $ ehh run INDEX|QUERY
+OR
+$ ehh INDEX (less typing)
 ```
 
 Run your command by index. It's also possible to use a query, it will loop through the matches and ask for it to be run.

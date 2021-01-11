@@ -58,12 +58,14 @@ $ ehh ls QUERY?
 List your commands with an index and description. Add an optional QUERY to filter the list.
 
 ```
-$ ehh run INDEX|QUERY
+$ ehh run INDEX|ALIAS
 OR
 $ ehh INDEX (less typing)
+OR
+$ ehh ALIAS
 ```
 
-Run your command by index. It's also possible to use a query, it will loop through the matches and ask for it to be run.
+Run your command by index. It's also possible to use an alias, it will loop through the matches and ask for it to be run.
 
 ```
 $ ehh get INDEX

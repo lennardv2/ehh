@@ -16,6 +16,7 @@ import os
 import re
 
 __author__ = "Lennard Voogdt"
+__version__ = "1.0.0"
 
 commands = []
 commandsJsonFile = os.environ['HOME'] + '/ehh.json'
@@ -28,14 +29,18 @@ if(os.path.isfile(commandsJsonFile)):
 def trunc(data, max, min = 0):
     return (data[:max] + (data[max:] and '…')).ljust(min)
 
-if (len(commands) > 0):
-    maxSize = len(max([trunc(x['command'], 40) for x in commands], key = len))
-else:
-    maxSize = 10
-
 for command in commands:
     if 'group' not in command:
         command['group'] = ''
+    if 'alias' not in command:
+        command['alias'] = ''
+
+if (len(commands) > 0):
+    maxSize = len(max([trunc(x['command'], 30) for x in commands], key = len))
+    maxSizeAlias = len(max([trunc(x['alias'], 100) for x in commands], key = len))
+else:
+    maxSize = 10
+    maxSizeAlias = 0
 
 
 def groupCommands(cmds):
@@ -43,6 +48,7 @@ def groupCommands(cmds):
     return [[y for y in cmds if y['group']==x] for x in values]
 
 @click.group()
+@click.version_option(__version__)
 def main():
     """
     Simple CLI for remembering commands
@@ -51,7 +57,7 @@ def main():
 
 
 def echoCommand(command, index):
-    click.echo("  " + Fore.MAGENTA + str(index + 1).ljust(3) + " " +  Fore.RESET + trunc(command['command'], 40, maxSize) + Fore.LIGHTBLUE_EX + "    " + trunc(command['description'], 40) + "" + Fore.RESET)
+    click.echo("  " + Fore.MAGENTA + str(index + 1).ljust(3) + " " + Fore.RESET + trunc(command['command'], 30, maxSize) + Fore.GREEN + "  " + command['alias'].ljust(maxSizeAlias) + " " + Fore.LIGHTBLUE_EX  + trunc(command['description'], 30) + "" + Fore.RESET)
 
 def echoCommandBig(command, index):
     click.echo("Id: " + str(index))
@@ -75,6 +81,8 @@ def execCommand(command):
     for var in commandVars:
         answer = click.prompt(var)
         command = command.replace("(:" + var + ")", answer)
+
+    click.echo("Running: " + Fore.MAGENTA + command + Fore.RESET)
 
     os.system(command)
 
@@ -104,7 +112,7 @@ def ls(query):
 @click.argument('query')
 @click.option('--confirmation/--no-confirmation', '-c/-C', default=None)
 def run(query, confirmation):
-    """Run commands by argument or id"""
+    """Run commands by alias or id"""
 
     query = query.lower()
 
@@ -115,9 +123,10 @@ def run(query, confirmation):
         matches = [commands[int(query) - 1]]
     else:
         if (confirmation == None):
-            confirmation = True
+            confirmation = False
         # Search in commands return list of all matches
-        matches = [x for x in commands if (query in x['command'].lower()) or (query in x['description'].lower())]
+        # matches = [x for x in commands if (query in x['command'].lower()) or (query in x['description'].lower())]
+        matches = [x for x in commands if (query == x['alias'])]
     
     for match in matches:
         if (confirmation):
@@ -133,12 +142,15 @@ def add():
 
     command = click.prompt("Command")
     description = click.prompt("Description")
-    group = click.prompt("Group (optional)")
+    alias = click.prompt("Alias (optional)", default="")
+
+    group = click.prompt("Group (optional)", default="")
 
     commands.append({
         'command': command,
         'description': description,
-        'group': group
+        'group': group,
+        'alias': alias
     })
 
     with open(commandsJsonFile, 'w+') as outfile:
@@ -169,10 +181,17 @@ def get(index):
 
     echoCommandBig(match, index)
 
-if (len(sys.argv) > 1 and sys.argv[1].isnumeric()):
-    run.callback(sys.argv[1], False)
+if (len(sys.argv) > 1):
+    mainArg = sys.argv[1]
+    if (mainArg.isnumeric()):
+        run.callback(sys.argv[1], False)
+        exit()
+    else:
+        if mainArg not in ["add", "get", "ls", "rm", "run", "--version", "--help"]:
+            run.callback(sys.argv[1], False)
+            exit()
 
-    exit()
+    
 
 if __name__ == "__main__":
     main()

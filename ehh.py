@@ -15,8 +15,6 @@ from colorama import Fore, Back
 import os
 import re
 
-import requests
-
 __author__ = "Lennard Voogdt"
 
 commands = []

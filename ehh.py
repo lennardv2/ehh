@@ -129,7 +129,7 @@ def run(query, confirmation):
 
 @main.command()
 def add():
-    """Ad a command"""
+    """Add a command"""
 
     command = click.prompt("Command")
     description = click.prompt("Description")

@@ -1,6 +1,9 @@
 # ehh
 Commandline tool for remembering linux/terminal commands. It stores you favorite commands in ```~/ehh.json``` in your homedir and provides an interface for searching and running commands. Provides support for filling in arguments with variables in an interactive way ```(:name)```.
 
+![Kapture 2021-01-11 at 17 26 36](https://user-images.githubusercontent.com/168357/104209913-8d42df00-5432-11eb-9ab2-8ca210fd2404.gif)
+
+
 # Installation
 
 ```
@@ -24,8 +27,6 @@ curl https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh.json -o ehh.json && 
 ```
 
 # Example
-
-![Kapture 2021-01-11 at 17 26 36](https://user-images.githubusercontent.com/168357/104209913-8d42df00-5432-11eb-9ab2-8ca210fd2404.gif)
 
 ```
 $ ehh add

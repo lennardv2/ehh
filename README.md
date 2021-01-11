@@ -4,7 +4,7 @@ Commandline tool for remembering linux/terminal commands. It stores you favorite
 # Installation
 
 ```
-wget https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh.py && chmod +x ehh.py
+curl https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh.py -o ehh.py && chmod +x ehh.py
 ```
 
 Add it to your path:
@@ -15,6 +15,12 @@ sudo ln -s $(pwd)/ehh.py /usr/local/bin/ehh
 Install python libs:
 ```
 pip install colorama click
+```
+
+If you want to start with some commands you can use the example ehh.json. The commands in this file are linux based.
+
+```
+curl https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh.json -o ehh.json && mv ehh.json ~/ehh.json
 ```
 
 # Example

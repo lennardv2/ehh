@@ -12,6 +12,11 @@ Add it to your path:
 sudo ln -s $(pwd)/ehh.py /usr/local/bin/ehh
 ```
 
+Install python libs:
+```
+pip install colorama click
+```
+
 # Example
 
 ```

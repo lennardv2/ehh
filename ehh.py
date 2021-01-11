@@ -64,6 +64,7 @@ def echoCommandBig(command, index):
     click.echo("Command: " + Fore.MAGENTA + command['command'] + Fore.RESET)
     click.echo("Description: " + command['description'])
     click.echo("Group: " + command['group'])
+    click.echo("Alias: " + command['alias'])
 
 def echoGroup(group):
     click.echo(" ")

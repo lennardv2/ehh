@@ -28,7 +28,10 @@ if(os.path.isfile(commandsJsonFile)):
 def trunc(data, max, min = 0):
     return (data[:max] + (data[max:] and '…')).ljust(min)
 
-maxSize = len(max([trunc(x['command'], 40) for x in commands], key = len))
+if (len(commands) > 0):
+    maxSize = len(max([trunc(x['command'], 40) for x in commands], key = len))
+else:
+    maxSize = 10
 
 for command in commands:
     if 'group' not in command:

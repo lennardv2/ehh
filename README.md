@@ -25,6 +25,8 @@ curl https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh.json -o ehh.json && 
 
 # Example
 
+![Kapture 2021-01-11 at 17 26 36](https://user-images.githubusercontent.com/168357/104209913-8d42df00-5432-11eb-9ab2-8ca210fd2404.gif)
+
 ```
 $ ehh add
 > Command: sudo usermod -a -G (:group) (:user)

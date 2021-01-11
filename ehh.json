@@ -1,0 +1,57 @@
+[
+    {
+        "command": "sudo netstat -tunlp",
+        "description": "Check Listening Ports",
+        "group": "System"
+    },
+    {
+        "command": "uptime",
+        "description": "Check the uptime of the system",
+        "group": "System"
+    },
+    {
+        "command": "ls -ltrh",
+        "description": "List dir with readable sizes",
+        "group": "Navigation"
+    },
+    {
+        "command": "free",
+        "description": "Check free mem",
+        "group": "System"
+    },
+    {
+        "command": "df -h",
+        "description": "Check free diskspace",
+        "group": "System"
+    },
+    {
+        "command": "sudo adduser (:user)",
+        "description": "Add a user to the system",
+        "group": "User"
+    },
+    {
+        "command": "sudo userdel -r -f (:user)",
+        "description": "Remove a user from system",
+        "group": "User"
+    },
+    {
+        "command": "sudo groups (:user)",
+        "description": "List all groups of user",
+        "group": "User"
+    },
+    {
+        "command": "sudo sudo usermod -a -G (:group) (:user)",
+        "description": "Add a user to a group",
+        "group": "User"
+    },
+    {
+        "command": "awk -F: '($3>=1000)&&($1!=\"nobody\"){print $1}' /etc/passwd",
+        "description": "List all non-system users",
+        "group": "User"
+    },
+    {
+        "command": "hostname -I | awk '{print $1}'",
+        "description": "Get ip address of interface",
+        "group": "System"
+    }
+]

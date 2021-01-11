@@ -67,3 +67,9 @@ $ ehh get INDEX
 
 Get all the details of the command
 
+
+```
+$ ehh rm INDEX
+```
+
+Remove command by index

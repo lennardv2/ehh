@@ -7,7 +7,7 @@ Commandline tool for remembering linux/terminal commands. It stores you favorite
 wget https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh.py && chmod +x ehh.py
 ```
 
-Add it to your user bin for example:
+Add it to your path:
 ```
 sudo ln -s $(pwd)/ehh.py /usr/local/bin/ehh
 ```

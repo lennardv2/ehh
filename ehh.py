@@ -101,7 +101,7 @@ def ls(query):
         query = query.lower()
 
         # Search in commands return list of all matches
-        matches = [x for x in commands if (query in x['command'].lower()) or (query in x['description'].lower())]
+        matches = [x for x in commands if ( query in x['alias'].lower() or query in x['command'].lower() or query in x['description'].lower())]
     else:
         matches = commands
 

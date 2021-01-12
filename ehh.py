@@ -20,8 +20,14 @@ __author__ = "Lennard Voogdt"
 __version__ = "1.0.1"
 
 commands = []
+
 commandsJsonFile = os.environ['HOME'] + '/ehh.json'
 
+if (len(sys.argv) > 1 and sys.argv[1] == "--source"):
+    if (len(sys.argv) > 2):
+        commandsJsonFile = sys.argv[2]
+        del sys.argv[1]
+        del sys.argv[1]
 
 if(os.path.isfile(commandsJsonFile)):
     with open(commandsJsonFile) as f:
@@ -50,7 +56,8 @@ def groupCommands(cmds):
 
 @click.group()
 @click.version_option(__version__)
-def main():
+@click.option('--source', help="Path to the ehh.json source", default=None)
+def main(source):
     """
     Simple CLI for remembering commands
     """
@@ -187,17 +194,24 @@ def get(index):
 
     echoCommandBig(match, index)
 
+# click.echo(sys.argv)
+    
+
+
 if (len(sys.argv) > 1):
     mainArg = sys.argv[1]
+    # if (mainArg == "--source"):
+    #     if (len(sys.argv) <= 3): exit()
+    #     mainArg = sys.argv[3]
+
     if (mainArg.isnumeric()):
         run.callback(sys.argv[1], False)
         exit()
     else:
-        if mainArg not in ["add", "get", "ls", "rm", "run", "--version", "--help"]:
+        if mainArg not in ["add", "get", "ls", "rm", "run", "--version", "--help", "--source"]:
             run.callback(sys.argv[1], False)
             exit()
 
-    
 
 if __name__ == "__main__":
     main()

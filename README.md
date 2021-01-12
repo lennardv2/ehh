@@ -25,6 +25,8 @@ If you want to start with some commands you can use the example ehh.json. The co
 curl https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh.json -o ehh.json && mv ehh.json ~/ehh.json
 ```
 
+[![thanks2](https://user-images.githubusercontent.com/168357/104341960-a3b46d80-54fa-11eb-90a4-4295bb815818.png)](https://useplink.com/payment/nJtx7eWuU7QL7QO6czIF/)
+
 # Example
 
 ```

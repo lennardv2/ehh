@@ -1,4 +1,5 @@
-# Remember linux commands with ehh
+# ehh
+## Remember linux commands
 Commandline tool for remembering linux/terminal commands. It stores your favorite commands in ```~/ehh.json``` in your homedir and provides an interface for searching and running commands. Provides support for filling in arguments with variables in an interactive way ```(:name)```.
 
 ![Kapture 2021-01-11 at 18 34 22](https://user-images.githubusercontent.com/168357/104217475-b87dfc00-543b-11eb-8936-d585c7db6114.gif)

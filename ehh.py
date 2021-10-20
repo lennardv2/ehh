@@ -21,10 +21,17 @@ __version__ = "1.1.0"
 commands = []
 commandsJsonFile = os.environ['HOME'] + '/ehh.json'
 
+if (len(sys.argv) > 1 and sys.argv[1] == "--source"):
+    if (len(sys.argv) > 2):
+        commandsJsonFile = sys.argv[2]
+        del sys.argv[1]
+        del sys.argv[1]
+
 
 if(os.path.isfile(commandsJsonFile)):
     with open(commandsJsonFile) as f:
         commands = json.load(f)
+        
 
 def trunc(data, max, min = 0):
     return (data[:max] + (data[max:] and '…')).ljust(min)
@@ -53,7 +60,8 @@ def groupCommands(cmds):
 
 @click.group()
 @click.version_option(__version__)
-def main():
+@click.option('--source', help="Path to the ehh.json source", default=None)
+def main(source = None):
     """
     Simple CLI for remembering commands
     """
@@ -67,7 +75,7 @@ def echoCommand(command, index):
 def echoCommandBig(command, index):
     click.echo("Id: " + str(index))
     click.echo("Command: " + Fore.MAGENTA + command['command'] + Fore.RESET)
-    click.echo("Description: " + command['description'])
+    click.echo("Description: " + Fore.LIGHTBLUE_EX + command['description'] + Fore.RESET)
     click.echo("Group: " + command['group'])
     click.echo("Alias: " + command['alias'])
 
@@ -79,7 +87,13 @@ def echoGroup(group):
 
     click.echo(" ")
 
-def execCommand(command):
+def execCommand(match):
+    command = match['command']
+
+    click.echo("Running: " + Fore.MAGENTA + command + Fore.RESET)
+    click.echo("Description: " + Fore.LIGHTBLUE_EX + match['description'] + Fore.RESET)
+    click.echo("")
+
     commandVars = re.findall(r"\(:(.+?)\)",command)
     # Remove dups
     commandVars = list(dict.fromkeys(commandVars))
@@ -87,8 +101,6 @@ def execCommand(command):
     for var in commandVars:
         answer = click.prompt(var)
         command = command.replace("(:" + var + ")", answer)
-
-    click.echo("Running: " + Fore.MAGENTA + command + Fore.RESET)
 
     os.system(command)
 
@@ -141,7 +153,7 @@ def run(query, confirmation):
             answer = click.confirm('Run ' + Fore.MAGENTA + match['command'] + Fore.RESET, default=True)
 
         if (confirmation == False or answer):
-            execCommand(match['command'])
+            execCommand(match)
             return
     
     ls.callback(query)
@@ -206,7 +218,7 @@ if (len(sys.argv) > 1):
         run.callback(sys.argv[1], False)
         exit()
     else:
-        if mainArg in ["--version", "--help"]:
+        if mainArg in ["--version", "--help", "--source"]:
             args = sys.argv[2:]
             main()
         elif mainArg in ["add", "help", "get", "ls", "rm", "run"]:

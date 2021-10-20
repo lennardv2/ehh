@@ -35,11 +35,17 @@ $ ehh add
 > Command: sudo usermod -a -G (:group) (:user)
 > Description: Add a user to a group
 > Group (optional):
+> Alias (optional): user.group
 
-$ ehh ls
-> 1   sudo usermod -a -G (:group) (:user)     Add a user to a group
+$ ehh    # Get a list
+> 1   sudo usermod -a -G (:group) (:user)     user.group          Add a user to a group
 
-$ ehh run 1
+$ ehh 1
+> user: john
+> group: docker
+(Command sudo usermod -a -G docker john is ran)
+
+$ ehh user.group     # Using the lias
 > user: john
 > group: docker
 (Command sudo usermod -a -G docker john is ran)
@@ -66,6 +72,8 @@ OR
 $ ehh INDEX (less typing)
 OR
 $ ehh ALIAS
+
+if ehh INDEX|ALIAS fails, it return the list filtered by query
 ```
 
 Run your command by index. It's also possible to use an alias, it will loop through the matches and ask for it to be run.

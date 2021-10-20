@@ -4,7 +4,6 @@
 # pip install colorama click
 
 import sys
-
 try:
     import click
     import colorama
@@ -17,17 +16,11 @@ import os
 import re
 
 __author__ = "Lennard Voogdt"
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 commands = []
-
 commandsJsonFile = os.environ['HOME'] + '/ehh.json'
 
-if (len(sys.argv) > 1 and sys.argv[1] == "--source"):
-    if (len(sys.argv) > 2):
-        commandsJsonFile = sys.argv[2]
-        del sys.argv[1]
-        del sys.argv[1]
 
 if(os.path.isfile(commandsJsonFile)):
     with open(commandsJsonFile) as f:
@@ -52,15 +45,19 @@ else:
 
 def groupCommands(cmds):
     values = set(map(lambda x: x['group'], cmds))
-    return [[y for y in cmds if y['group']==x] for x in values]
+    values = sorted(values)
+    groups = [[y for y in cmds if y['group']==x] for x in values]
+
+
+    return groups
 
 @click.group()
 @click.version_option(__version__)
-@click.option('--source', help="Path to the ehh.json source", default=None)
-def main(source):
+def main():
     """
     Simple CLI for remembering commands
     """
+    
     pass
 
 
@@ -70,7 +67,7 @@ def echoCommand(command, index):
 def echoCommandBig(command, index):
     click.echo("Id: " + str(index))
     click.echo("Command: " + Fore.MAGENTA + command['command'] + Fore.RESET)
-    click.echo("Description: " + Fore.LIGHTBLUE_EX + command['description'] + Fore.RESET)
+    click.echo("Description: " + command['description'])
     click.echo("Group: " + command['group'])
     click.echo("Alias: " + command['alias'])
 
@@ -82,13 +79,7 @@ def echoGroup(group):
 
     click.echo(" ")
 
-def execCommand(match):
-    command = match['command']
-
-    click.echo("Running: " + Fore.MAGENTA + command + Fore.RESET)
-    click.echo("Description: " + Fore.LIGHTBLUE_EX + match['description'] + Fore.RESET)
-    click.echo("")
-
+def execCommand(command):
     commandVars = re.findall(r"\(:(.+?)\)",command)
     # Remove dups
     commandVars = list(dict.fromkeys(commandVars))
@@ -97,18 +88,23 @@ def execCommand(match):
         answer = click.prompt(var)
         command = command.replace("(:" + var + ")", answer)
 
+    click.echo("Running: " + Fore.MAGENTA + command + Fore.RESET)
+
     os.system(command)
 
 @main.command()
 @click.argument('query', required=False, default=None)
-def ls(query):
+def ls(query = None):
     """Find a command by query"""
 
     if (query != None):
         query = query.lower()
 
         # Search in commands return list of all matches
-        matches = [x for x in commands if ( query in x['alias'].lower() or query in x['command'].lower() or query in x['description'].lower())]
+        matches = [x for x in commands if (query in x['command'].lower()) 
+            or (query in x['description'].lower()) 
+            or (query in x['group'].lower()) 
+            or (query in x['alias'].lower())]
     else:
         matches = commands
 
@@ -126,7 +122,6 @@ def ls(query):
 @click.option('--confirmation/--no-confirmation', '-c/-C', default=None)
 def run(query, confirmation):
     """Run commands by alias or id"""
-
     query = query.lower()
 
     if (query.isnumeric()):
@@ -146,8 +141,12 @@ def run(query, confirmation):
             answer = click.confirm('Run ' + Fore.MAGENTA + match['command'] + Fore.RESET, default=True)
 
         if (confirmation == False or answer):
-            execCommand(match)
-            break
+            execCommand(match['command'])
+            return
+    
+    ls.callback(query)
+    
+  
 
 @main.command()
 def add():
@@ -194,25 +193,35 @@ def get(index):
 
     echoCommandBig(match, index)
 
-# click.echo(sys.argv)
-    
-
+@main.command()
+def help():
+    """Get the help"""
+    with click.Context(main) as ctx:
+        click.echo(main.get_help(ctx))
+    return
 
 if (len(sys.argv) > 1):
     mainArg = sys.argv[1]
-    # if (mainArg == "--source"):
-    #     if (len(sys.argv) <= 3): exit()
-    #     mainArg = sys.argv[3]
-
     if (mainArg.isnumeric()):
         run.callback(sys.argv[1], False)
         exit()
     else:
-        if mainArg not in ["add", "get", "ls", "rm", "run", "--version", "--help", "--source"]:
+        if mainArg in ["--version", "--help"]:
+            args = sys.argv[2:]
+            main()
+        elif mainArg in ["add", "help", "get", "ls", "rm", "run"]:
+            args = sys.argv[2:]
+
+            for index, arg in enumerate(args):
+                if (arg.isnumeric()):
+                    args[index] = int(arg)
+
+            globals()[mainArg].callback(*args)
+            exit()
+        else:
             run.callback(sys.argv[1], False)
             exit()
 
-
 if __name__ == "__main__":
-    main()
+    ls()
     

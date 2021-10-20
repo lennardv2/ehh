@@ -53,8 +53,8 @@ else:
 def groupCommands(cmds):
     values = set(map(lambda x: x['group'], cmds))
     values = sorted(values)
+    cmds = sorted(cmds, key=lambda x:x['alias'])
     groups = [[y for y in cmds if y['group']==x] for x in values]
-
 
     return groups
 

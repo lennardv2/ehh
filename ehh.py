@@ -23,10 +23,10 @@ commands = []
 commandsYamlFile = os.environ['HOME'] + '/ehh.yaml'
 commandsJsonFile = os.environ['HOME'] + '/ehh.json'
 
-if(os.path.isfile(commandsYamlFile)):
-    commandsFile = commandsYamlFile
-else:
+if(os.path.isfile(commandsJsonFile)):
     commandsFile = commandsJsonFile
+else:
+    commandsFile = commandsYamlFile
 
 if (len(sys.argv) > 1 and sys.argv[1] == "--source"):
     if (len(sys.argv) > 2):

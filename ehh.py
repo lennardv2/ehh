@@ -11,7 +11,7 @@ except ImportError:
     sys.exit("""You should run 'pip install colorama click' for this to work""")
 
 import json
-from colorama import Fore, Back
+from colorama import Fore, Back, Style
 import os
 import re
 
@@ -72,12 +72,15 @@ def main(source = None):
 def echoCommand(command, index):
     click.echo("  " + Fore.MAGENTA + str(index + 1).ljust(3) + " " + Fore.RESET + trunc(command['command'], 30, maxSize) + Fore.GREEN + "  " + command['alias'].ljust(maxSizeAlias) + " " + Fore.LIGHTBLUE_EX  + trunc(command['description'], 30) + "" + Fore.RESET)
 
+def echoDefinition(string):
+    return Style.DIM + string.ljust(16) + Style.RESET_ALL
+
 def echoCommandBig(command, index):
-    click.echo("Id: " + str(index))
-    click.echo("Command: " + Fore.MAGENTA + command['command'] + Fore.RESET)
-    click.echo("Description: " + Fore.LIGHTBLUE_EX + command['description'] + Fore.RESET)
-    click.echo("Group: " + command['group'])
-    click.echo("Alias: " + command['alias'])
+    click.echo(echoDefinition("Group: ") + command['group'])
+    click.echo(echoDefinition("Id: ") + Fore.MAGENTA + str(index) + Fore.RESET)
+    click.echo(echoDefinition("Command: ") + Fore.WHITE + command['command'] + Fore.RESET)
+    click.echo(echoDefinition("Alias: ") + Fore.GREEN + command['alias'] + Fore.RESET)
+    click.echo(echoDefinition("Description: ") + Fore.LIGHTBLUE_EX + command['description'] + Fore.RESET)
 
 def echoGroup(group):
     click.echo(" ")
@@ -90,8 +93,8 @@ def echoGroup(group):
 def execCommand(match):
     command = match['command']
 
-    click.echo("Running: " + Fore.MAGENTA + command + Fore.RESET)
-    click.echo("Description: " + Fore.LIGHTBLUE_EX + match['description'] + Fore.RESET)
+    click.echo(echoDefinition("Running: ") + Fore.MAGENTA + command + Fore.RESET)
+    click.echo(echoDefinition("Description: ") + Fore.LIGHTBLUE_EX + match['description'] + Fore.RESET)
     click.echo("")
 
     commandVars = re.findall(r"\(:(.+?)\)",command)

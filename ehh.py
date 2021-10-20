@@ -7,6 +7,7 @@ import sys
 try:
     import click
     import colorama
+    import yaml
 except ImportError:
     sys.exit("""You should run 'pip install colorama click' for this to work""")
 
@@ -19,19 +20,27 @@ __author__ = "Lennard Voogdt"
 __version__ = "1.1.0"
 
 commands = []
+commandsYamlFile = os.environ['HOME'] + '/ehh.yaml'
 commandsJsonFile = os.environ['HOME'] + '/ehh.json'
+
+if(os.path.isfile(commandsYamlFile)):
+    commandsFile = commandsYamlFile
+else:
+    commandsFile = commandsJsonFile
 
 if (len(sys.argv) > 1 and sys.argv[1] == "--source"):
     if (len(sys.argv) > 2):
-        commandsJsonFile = sys.argv[2]
+        commandsFile = sys.argv[2]
         del sys.argv[1]
         del sys.argv[1]
 
 
-if(os.path.isfile(commandsJsonFile)):
-    with open(commandsJsonFile) as f:
-        commands = json.load(f)
-        
+if(os.path.isfile(commandsFile)):
+    with open(commandsFile) as f:
+        if ".yaml" in commandsFile:
+            commands = yaml.safe_load(f)
+        if ".json" in commandsFile:
+            commands = json.load(f)
 
 def trunc(data, max, min = 0):
     return (data[:max] + (data[max:] and '…')).ljust(min)
@@ -180,8 +189,12 @@ def add():
         'alias': alias
     })
 
-    with open(commandsJsonFile, 'w+') as outfile:
-        json.dump(commands, outfile, indent=4)
+    with open(commandsFile, 'w+') as outfile:
+        if ".yaml" in commandsFile:
+            yaml.dump(commands, outfile)
+        if ".json" in commandsFile:
+            json.dump(commands, outfile, indent=4)
+        
 
 @main.command()
 @click.argument('index', type = int)
@@ -195,8 +208,11 @@ def rm(index):
     if answer:
         del commands[index - 1]
 
-    with open(commandsJsonFile, 'w+') as outfile:
-        json.dump(commands, outfile, indent=4)
+    with open(commandsFile, 'w+') as outfile:
+        if ".yaml" in commandsFile:
+            yaml.dump(commands, outfile)
+        if ".json" in commandsFile:
+            json.dump(commands, outfile, indent=4)
 
 
 @main.command()

@@ -1,0 +1,4 @@
+- command: sudo netstat -tunlp
+  description: Check Listening Ports
+  group: System
+  alias: ports

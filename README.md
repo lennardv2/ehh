@@ -3,7 +3,7 @@
 ## Remember linux commands
 Tired of forgetting bash/linux/osx commands?
 
-Store any command inside ehh. Now you can always find in by typing ```ehh```. It's bash aliasing on steriods.
+Store any command inside ehh. You can run it via ```ehh```. It's aliasing with some neat extras.
 
 ## Features
 https://user-images.githubusercontent.com/168357/185811288-a5767eb8-3da9-46eb-a9a7-5b45fab97513.mp4

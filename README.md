@@ -1,8 +1,23 @@
 # ehh
-## Remember linux commands
-Commandline tool for remembering linux/terminal commands, over time it becomes your toolbelt for system administration. It stores your favorite commands in ```~/ehh.json``` or ```~/ehh.yaml``` in your homedir and provides an interface for searching and running commands. Provides support for filling in arguments with variables in an interactive way ```(:name)```.
 
-![Kapture 2021-01-11 at 18 34 22](https://user-images.githubusercontent.com/168357/104217475-b87dfc00-543b-11eb-8936-d585c7db6114.gif)
+## Remember linux commands
+Tired of forgetting bash/linux/osx commands?
+
+This tool will help you store any command inside ehh. Once it's there you can always find it by typing ```ehh```
+
+## Features
+https://user-images.githubusercontent.com/168357/185811288-a5767eb8-3da9-46eb-a9a7-5b45fab97513.mp4
+
+* Store commands like ``sudo lsof -iTCP -sTCP:LISTEN -n -P`` (osx) under an alias like ``sys.ports``
+* Add a description to your command ``Check Listening Ports``
+* Run the command by alias ``ehh sys.ports`` or by index ``ehh 23``
+* Show a list of all stored commands by typing ``ehh``
+* Filter the list of stored commands by typing ``ehh {query}``. ``ehh sys`` will show all commands in the sys namespace.
+
+https://user-images.githubusercontent.com/168357/185811458-d383212a-dc37-4f46-9abe-bcf708509496.mp4
+
+* Add vars to a commmand by using ``(:var_name)``. For example: ``find "$(pwd)" -name (:search) 2>/dev/null`` will prompt for a search query to search in the current directory (osx)
+* All commands are stored inside ``~/ehh.yaml``
 
 # Installation
 

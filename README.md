@@ -18,11 +18,20 @@ https://user-images.githubusercontent.com/168357/185811458-d383212a-dc37-4f46-9a
 
 * Add vars to a commmand by using ``(:var_name)``. For example: ``find "$(pwd)" -name (:search) 2>/dev/null`` will prompt for a search query to search in the current directory (osx)
 * All commands are stored inside ``~/ehh.yaml``
+* See ``ehh help`` for more info
 
 # Installation
 
+## Via [pipx](https://pypa.github.io/pipx/)
+
 ```
-curl https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh.py -o ehh.py && chmod +x ehh.py
+pipx install ehh
+```
+
+## Manual installation
+
+```
+curl https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh/cli.py -o ehh.py && chmod +x ehh.py
 ```
 
 Add it to your path:
@@ -32,18 +41,17 @@ sudo ln -s $(pwd)/ehh.py /usr/local/bin/ehh
 
 Install python libs:
 ```
-pip install colorama click
+pip install colorama click pyyaml
 ```
 
-If you want to start with some commands you can use the example ehh.json. The commands in this file are linux based.
+If you want to start with some commands you can use the example ehh.yaml. The commands in this file are linux based.
 
 ```
-curl https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh.json -o ehh.json && mv ehh.json ~/ehh.json
+curl https://raw.githubusercontent.com/lvoogdt/ehh/main/ehh/ehh.yaml -o ehh.yaml && mv ehh.yaml ~/ehh.yaml
 ```
 
-[![thanks2](https://user-images.githubusercontent.com/168357/104341960-a3b46d80-54fa-11eb-90a4-4295bb815818.png)](https://useplink.com/payment/nJtx7eWuU7QL7QO6czIF/)
 
-# Example
+# Examples
 
 ```
 $ ehh add

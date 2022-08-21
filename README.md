@@ -1,5 +1,7 @@
 # ehh
 
+<img width="838" alt="ehh" src="https://user-images.githubusercontent.com/168357/185814543-aad1121c-b682-4b77-aef6-9bb481c58709.png">
+
 ## Remember linux commands
 Tired of forgetting bash/linux/osx commands?
 

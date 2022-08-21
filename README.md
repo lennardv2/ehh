@@ -7,7 +7,7 @@ Store and run any command inside ```ehh```.
 
 ```pipx install ehh ```
 
-## Why not just alias?
+## Why not just alias or ctrl+r?
 Well, ehh provides:
 * An organized list of aliases
 * List groups

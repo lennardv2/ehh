@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = "ehh",
-    version = "1.1.0",
+    version = "1.1.1",
     author = "Lennard Voogdt",
     author_email = "lennard@spring.nl",
     description = ("A tool for easy aliasing and listing of (complex) linux/bash commands. Support for custom vars."),

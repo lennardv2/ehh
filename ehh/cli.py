@@ -17,7 +17,7 @@ import os
 import re
 
 __author__ = "Lennard Voogdt"
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 commands = []
 commandsYamlFile = os.environ['HOME'] + '/ehh.yaml'

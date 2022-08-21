@@ -6,7 +6,7 @@
 import ehh.cli
 
 __author__ = "Lennard Voogdt"
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 def main(source = None):
     ehh.cli.ls()

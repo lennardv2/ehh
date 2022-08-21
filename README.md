@@ -13,7 +13,7 @@ Well, ehh provides:
 * List groups
 * List filtering
 * Support for vars, which are prompted on run
-* Easy to add new alias
+* Easy way to add an alias
 
 ## Features
 https://user-images.githubusercontent.com/168357/185811288-a5767eb8-3da9-46eb-a9a7-5b45fab97513.mp4

@@ -3,7 +3,7 @@
 ## Remember linux commands
 Tired of forgetting bash/linux/osx commands?
 
-Store and run any command inside ```ehh```.
+Store and run any command inside ```ehh```. But better than just aliasing.
 
 ```pipx install ehh ```
 

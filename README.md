@@ -3,9 +3,17 @@
 ## Remember linux commands
 Tired of forgetting bash/linux/osx commands?
 
-Store and run any command inside ```ehh```. But better than just aliasing.
+Store and run any command inside ```ehh```. 
 
 ```pipx install ehh ```
+
+## Why not just alias?
+Well, ehh provides:
+* An organized list of aliases
+* List groups
+* List filtering
+* Support for vars, which are prompted on run
+* Easy to add new alias
 
 ## Features
 https://user-images.githubusercontent.com/168357/185811288-a5767eb8-3da9-46eb-a9a7-5b45fab97513.mp4
